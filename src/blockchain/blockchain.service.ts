@@ -12,7 +12,7 @@ export class BlockchainService {
   createGenesisBlock(): Block {
     return {
       timestamp: Date.now(),
-      data: 'Genesis Block',
+      data: [],
       previousHash: '0',
       hash: '0',
       nonce: 0,

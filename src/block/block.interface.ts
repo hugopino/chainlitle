@@ -1,6 +1,8 @@
+import { Transaction } from 'src/transaction/transaction.interface';
+
 export interface Block {
   timestamp: number;
-  data: string;
+  data: Transaction[];
   hash: string;
   previousHash: string;
   nonce: number;
