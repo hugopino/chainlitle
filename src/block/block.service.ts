@@ -5,19 +5,13 @@ import { Transaction } from 'src/transaction/transaction.interface';
 
 @Injectable()
 export class BlockService {
-  calculateHash({
-    previousHash,
-    timestamp,
-    data,
-    nonce,
-    difficulty,
-  }: {
-    previousHash: string;
-    timestamp: number;
-    data: Transaction[];
-    nonce: number;
-    difficulty: number;
-  }): string {
+  calculateHash(
+    block: Pick<
+      Block,
+      'previousHash' | 'timestamp' | 'data' | 'nonce' | 'difficulty'
+    >,
+  ): string {
+    const { previousHash, timestamp, data, nonce, difficulty } = block;
     return crypto
       .createHash('sha256')
       .update(

@@ -38,7 +38,24 @@ export class BlockchainService {
   }
 
   isChainValid(chain: Blockchain): boolean {
-    return chain.length > 0;
+    if (chain.length === 0) return false;
+
+    for (let i = 0; i < chain.length; i++) {
+      const currentBlock = chain[i];
+      const previousHash = i === 0 ? '0' : chain[i - 1].hash;
+      if (currentBlock.previousHash !== previousHash) {
+        return false;
+      }
+      const recalculatedHash = this.blockService.calculateHash(currentBlock);
+      if (currentBlock.hash !== recalculatedHash) {
+        return false;
+      }
+      if (!currentBlock.hash.startsWith('0'.repeat(currentBlock.difficulty))) {
+        return false;
+      }
+    }
+
+    return true;
   }
   //   funciton to compare if a chain is longer than the current chain
   isChainLonger(chain: Blockchain): boolean {
