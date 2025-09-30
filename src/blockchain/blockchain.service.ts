@@ -37,7 +37,11 @@ export class BlockchainService {
     this.chain.push(block);
   }
 
-  isChainValid(chain: Blockchain): boolean {
+  // getDifficulty(): number {
+  //   return this.chain[this.chain.length - 1].difficulty;
+  // }
+
+  isValidChain(chain: Blockchain): boolean {
     if (chain.length === 0) return false;
 
     for (let i = 0; i < chain.length; i++) {
@@ -57,9 +61,16 @@ export class BlockchainService {
 
     return true;
   }
+
+  // replaceChain(chain: Blockchain): void {
+  //   if (this.isChainValid(chain) && this.isChainLonger(chain)) {
+  //     this.chain = chain;
+  //   }
+  // }
+
   //   funciton to compare if a chain is longer than the current chain
   isChainLonger(chain: Blockchain): boolean {
-    if (!this.isChainValid(chain)) {
+    if (!this.isValidChain(chain)) {
       return false;
     }
     return chain.length > this.chain.length;
